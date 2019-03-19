@@ -5,27 +5,39 @@ class UDPClient {
     private InetAddress serverIP;
     private int serverPortNumber;
 
+    byte[] byteDataRequest;
+    byte[] byteDataResponse;
+
+    DatagramPacket requestPacket;
+    DatagramPacket responsePacket;
+    DatagramSocket clientSocket;
+
     // constructor
     UDPClient(InetAddress serverIP, int serverPortNumber) {
         this.serverIP = serverIP;
         this.serverPortNumber = serverPortNumber;
+        this.byteDataRequest = new byte[1024];
+        this.byteDataResponse = new byte[1024];
+        this.clientSocket = null;
     }
 
-    public void sendUDPPacket(String typeRequest, String data) {
-        // to bytes
-        byte[] byteDataRequest = new byte[1024];
-        byte[] byteDataResponse = new byte[1024];
-        byteDataRequest = data.getBytes();
-        // setup packet config
-        DatagramPacket requestPacket = new DatagramPacket(byteDataRequest, byteDataRequest.length, this.serverIP, this.serverPortNumber);
-        DatagramPacket responsePacket = new DatagramPacket(byteDataResponse, byteDataResponse.length);
-        DatagramSocket clientSocket = null;
+    /**
+     * Sends a UDP packet to the server.
+     * Message contains type of message and message
+     * Type of message verified in server
+     */
+    public void sendUDPPacket(Message msg) {
+
+        byteDataRequest = msg.toBytes();
+        this.requestPacket = new DatagramPacket(byteDataRequest, byteDataRequest.length, this.serverIP, this.serverPortNumber);
+        this.responsePacket = new DatagramPacket(byteDataResponse, byteDataResponse.length);
+        this.clientSocket = null;
+
         try{
-            clientSocket = new DatagramSocket();
-            clientSocket.send(requestPacket);  
-            clientSocket.receive(responsePacket);
-            String modifiedSentence = new String(responsePacket.getData());
-            System.out.println("FROM SERVER:" + modifiedSentence);
+            this.clientSocket = new DatagramSocket();
+            this.clientSocket.send(requestPacket);
+            receivePacket();
+            
         } catch(SocketException e) {
             System.out.println("Error receiving packet response from server");
             System.out.println(e.getMessage());
@@ -39,38 +51,60 @@ class UDPClient {
         }
     }
 
-    /** each p2p client knows IP address of directory server (ID=1)
-     *  starting with this IP the p2p client needs to ask DHT for
-     *  IP addresses of remaining servers and get them.
+    /** 
+     * Waits for server packet, select operation according to the type 
+     * of message sent by server (should be the same as client message type)
      */
-    private void init() {
+    public void receivePacket() {
+        try{
+            this.clientSocket.receive(responsePacket);
+            Message msgReceived = 
+                processMessageReceived(new String(responsePacket.getData()));
+            
+            switch (msgReceived.getMessageType()) {
+                case "init":
+                    init(msgReceived.getMessage());
+                    break;
+                case "informAndUpdate":
+                    informAndUpdate(msgReceived.getMessage());
+                    break;
+                case "query":
+                    query(msgReceived.getMessage());
+                    break;
+                case "exit":
+                    exit(msgReceived.getMessage());
+                    break;
+                default:
+                    System.out.println("Type of server response not recognized: "  + msgReceived.getMessageType());
+                    break;
+            }
+            
+        } catch(IOException e) {
+            System.out.println("Error reading received data from server");
+            System.out.println(e.getMessage());
+        }
+    }
+
+    private void init(String dataReceived) {
+        System.out.println("FROM SERVER:" + dataReceived);
+    }
+
+    private void informAndUpdate(String dataReceived) {
+        System.out.println("FROM SERVER:" + dataReceived);
+    }
+
+    private void query(String dataReceived) {
+        System.out.println("FROM SERVER:" + dataReceived);
 
     }
 
-    /** p2p client needs to perdorm hashing of content name into server id
-     *  contact target server to store the recorde (content name, client IP)
-     *  keep the local recorde (content name, DHT server, server' IP)
-     */
-    private void informAndUpdate () {
-
-    }
-    /** requires p2p client to:
-     *  - perform the hashing of the content's name into server id
-     *  - contact server DHT to find the IP of client with required content name
-     *    (after init all IP addresses of servers in DHT are known)
-     *  - if content does not exist in the network DHTm return code "404 content not found"
-    */
-    private void query() {
-
+    private void exit(String dataReceived) {
+        System.out.println("FROM SERVER:" + dataReceived);
     }
 
-    /** p2p client request has to be dispersed across all servers in DHT
-     *  inform them to remove the records related to the contnet stored 
-     *  DHT server chosen as the entry can be any of the 4 and request
-     *  as to be passed over the ring to delete all the recorded owned
-     *  by the client who wants to exist
-     */
-    private void exit() {
-
+    public Message processMessageReceived(String dataReceived) {
+        String[] data = dataReceived.split("\n");
+        Message msgReceived = new Message(data[0], data[1]);
+        return msgReceived;
     }
-} 
+}
