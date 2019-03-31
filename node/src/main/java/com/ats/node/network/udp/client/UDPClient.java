@@ -1,11 +1,11 @@
 package com.ats.node.network.udp.client;
 
+import com.ats.node.models.Peer;
 import java.io.*;
 import java.net.*;
-import com.ats.node.Peer;
 import com.ats.node.Message;
 
-class UDPClient {
+public class UDPClient {
     private static final int MAX_PACKET_LEN = 65508;
     private DatagramSocket socket;
     private Peer peer;
