@@ -1,5 +1,7 @@
 package com.ats.node.models;
 
+import java.net.*;
+
 public class Peer {
     private int id;
     private String ip;
@@ -22,6 +24,18 @@ public class Peer {
 
     public String getIp() {
         return this.ip;
+    }
+
+    public InetAddress getIpInetAddress() {
+        try {
+            InetAddress ip = InetAddress.getByName(this.ip);
+
+        } catch (UnknownHostException e) {
+            System.out.println("Error getting InetAddress");
+            System.out.println(e.getMessage());
+        }
+
+        return null;
     }
 
     public int getPort() {

@@ -10,18 +10,19 @@ public class App {
 
     public static void main(String[] args) {
 
-        // acquire server pool ip, udp port num
+        // acquire master's server pool ip, udp port
         Settings settings = new Settings(SETTINGS_FILENAME);
-        InetAddress serverIPAddress = settings.getServerPoolInetAddress();
         String serverIP = settings.getServerPoolIp();
         int serverPort = settings.getUDPPort();
 
-        // init: ask for ip all dht servers, store them
-
-        // DHT master peer
-        Peer masterPeer = new Peer(serverIP, serverPort);
-        Message udpMessage = new Message("init", "");
+        // init: ask for all dht servers info
+        Peer masterPeer = new Peer(serverIP, serverPort); // DHT master peer
+        Message requestMsg = new Message("init", "");
         UDPClient udpClient = new UDPClient(masterPeer);
+        udpClient.sendPacket(requestMsg);
+
+        // message format not defined yet
+        Message responseMsg = udpClient.receive();
 
         // inform and update: add node's own pictures to network
         // display user possible commands

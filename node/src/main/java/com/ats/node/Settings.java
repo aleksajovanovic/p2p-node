@@ -6,7 +6,6 @@ import java.nio.charset.StandardCharsets;
 
 import org.json.JSONObject;
 import org.apache.commons.io.IOUtils;
-import java.net.*;
 
 public class Settings {
 
@@ -25,19 +24,6 @@ public class Settings {
 
     public String getServerPoolIp() {
         return this.json.getJSONObject("serverPool").getString("masterIp");
-    }
-
-    public InetAddress getServerPoolInetAddress() {
-        try {
-            String serverPoolId = this.json.getJSONObject("serverPool").getString("masterIp");
-            return InetAddress.getByName(serverPoolId);
-
-        } catch (UnknownHostException e) {
-            System.out.println("Error getting InetAddress");
-            System.out.println(e.getMessage());
-        }
-
-        return null;
     }
 
     public int getUDPPort() {
