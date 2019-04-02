@@ -4,12 +4,14 @@ import java.net.*;
 import com.ats.node.network.udp.client.UDPClient;
 import com.ats.node.models.Peer;
 
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class App {
 
     final static String SETTINGS_FILENAME = "settings.json";
+    final static String PICTURES_DIRECTORY = "/pictures";
 
     public static void main(String[] args) {
 
@@ -39,6 +41,15 @@ public class App {
         logger.logMessage("\"Init\" response received");
 
         // inform and update: add node's own pictures to network
+        // get pictures from resources folder
+        FileManager fileManager = new FileManager(PICTURES_DIRECTORY);
+        List<String> filenames = fileManager.getFilenames();
+        // create and send a packet for each picture
+        logger.logMessage("Filenames successfully obtained from resources");
+        for (String file : filenames) {
+            // create packet and send message type "informAndUpdate"
+            logger.logMessage("File: " + file);
+        }
         // display user possible commands
 
     }

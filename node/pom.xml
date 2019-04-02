@@ -30,6 +30,22 @@
         <artifactId>commons-io</artifactId>
         <version>2.6</version>
     </dependency>
-
   </dependencies>
+  <build>
+    <pluginManagement><!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) -->
+      <plugins>
+        <plugin>
+            <artifactId>maven-jar-plugin</artifactId>
+            <version>3.0.2</version>
+            <configuration>
+            <archive>
+                <manifest>
+                    <mainClass>com.ats.node.App</mainClass>
+                </manifest>
+            </archive>
+            </configuration>
+        </plugin>
+      </plugins>
+    </pluginManagement>
+  </build>
 </project>
