@@ -1,0 +1,6 @@
+{
+    "serverPool": {
+        "masterIp": "localhost",
+        "UDPPort": 20410
+    }
+}
