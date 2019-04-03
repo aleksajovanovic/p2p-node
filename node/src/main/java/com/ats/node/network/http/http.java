@@ -8,7 +8,6 @@ public class HttpURLConnectionExample {
 	// HTTP GET request
 	private void sendGet(IP) throws Exception {
 		
-		URL obj = new URL(url);
 		HttpURLConnection con = (HttpURLConnection) new URL(IP).openConnection();
 
 		// optional default is GET
