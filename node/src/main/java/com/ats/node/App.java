@@ -1,12 +1,8 @@
 package com.ats.node;
 
-import java.net.*;
-import com.ats.node.network.udp.client.UDPClient;
 import com.ats.node.models.Peer;
 
-import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.Scanner;
 
 public class App {
 
@@ -21,36 +17,48 @@ public class App {
         Settings settings = new Settings(SETTINGS_FILENAME);
         String serverIP = settings.getServerPoolIp();
         int serverPort = settings.getUDPPort();
-        // log: successully acquired master ip
-        System.out.println(serverPort);
-        logger.logServerDetails(serverIP, serverPort);
-
-        // init: ask for all dht servers info
-        logger.logMessage("creating \"Init\" request");
-
         Peer masterPeer = new Peer(serverIP, serverPort); // DHT master peer
-        Message requestMsg = new Message("init", "");
-        UDPClient udpClient = new UDPClient(masterPeer);
-        // udpClient.sendPacket(requestMsg);
-        logger.logMessage("request \"Init\" sent");
 
-        // message format not defined yet
-        logger.logMessage("waiting for  \"Init\" response");
-        // Message responseMsg = udpClient.receive();
-        // log: "init" received
-        logger.logMessage("\"Init\" response received");
-
+        NodeCLI nodeCLI = new NodeCLI(masterPeer);
+        // init: ask for all dht servers info
+        nodeCLI.init();
         // inform and update: add node's own pictures to network
-        // get pictures from resources folder
-        FileManager fileManager = new FileManager(PICTURES_DIRECTORY);
-        List<String> filenames = fileManager.getFilenames();
-        // create and send a packet for each picture
-        logger.logMessage("Filenames successfully obtained from resources");
-        for (String file : filenames) {
-            // create packet and send message type "informAndUpdate"
-            logger.logMessage("File: " + file);
-        }
-        // display user possible commands
+        nodeCLI.informAndUpdate(PICTURES_DIRECTORY);
 
+        Scanner choose = new Scanner(System.in);
+        int userInput = -1;
+
+        while (userInput != 3) {
+            nodeCLI.printMenu();
+
+            if (!choose.hasNextInt()) {
+                nodeCLI.printInvalidInputMsg();
+                choose.next();
+                continue;
+            }
+
+            userInput = choose.nextInt();
+            System.out.println("=====================================================================");
+
+            switch (userInput) {
+            case 1:
+                String filename = nodeCLI.getUserFilenameInput();
+                nodeCLI.query(filename);
+                userInput = -1;
+                break;
+            case 2:
+                nodeCLI.informAndUpdate(PICTURES_DIRECTORY);
+                userInput = -1;
+                break;
+            case 3:
+                nodeCLI.exit();
+                choose.close();
+                break;
+            default:
+                System.out.println("Invalid command inserted");
+                userInput = -1;
+                break;
+            }
+        }
     }
 }
