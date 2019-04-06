@@ -16,7 +16,7 @@ public class NodeCLI {
     }
 
     public void init() {
-        logger.logMessage("Creating init packet...");
+        NodeLogger.logMessage("Creating init packet...");
         Message initMsg = new Message("init", "");
         // UDPClient udpClient = new UDPClient(masterPeer);
         // udpClient.sendPacket(initMsg);
@@ -30,7 +30,7 @@ public class NodeCLI {
         List<String> filenames = fileManager.getFilenames();
 
         for (String file : filenames) {
-            logger.logMessage("Creating informAndUpdate packet for " + file + "...");
+            NodeLogger.logMessage("Creating informAndUpdate packet for " + file + "...");
             // single thread
             // generate and obtain hash here
             Message informMsg = new Message("informAndUpdate", file);
@@ -41,7 +41,7 @@ public class NodeCLI {
     }
 
     public void exit() {
-        logger.logMessage("Creating exit packet ...");
+        NodeLogger.logMessage("Creating exit packet ...");
         Message exitMsg = new Message("exit", "");
         // UDPClient udpClient = new UDPClient(masterPeer);
         // udpClient.sendPacket(exitMsg);
@@ -50,7 +50,7 @@ public class NodeCLI {
     }
 
     public void query(String filename) {
-        logger.logMessage("Creating query packet ...");
+        NodeLogger.logMessage("Creating query packet ...");
         // need to hash
         Message exitMsg = new Message("query", "");
         // UDPClient udpClient = new UDPClient(masterPeer);
@@ -61,9 +61,9 @@ public class NodeCLI {
         // HTTP req, res
         FileManager fileManager = new FileManager(directory);
         if (fileManager.isFileExistent(filename)) {
-            logger.logMessage("File " + filename + "downloaded successfully ...");
+            NodeLogger.logMessage("File " + filename + "downloaded successfully ...");
         } else {
-            logger.logMessage("File " + filename + "not downloaded successfully ...");
+            NodeLogger.logMessage("File " + filename + "not downloaded successfully ...");
         }
     }
 
@@ -72,7 +72,7 @@ public class NodeCLI {
         System.out.println("Type the filename to query and press enter!");
         String filename = userInput.next();
         System.out.println("=====================================================================");
-        logger.logMessage("Creating query packet ...");
+        NodeLogger.logMessage("Creating query packet ...");
         return filename;
     }
 

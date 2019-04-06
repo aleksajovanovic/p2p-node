@@ -7,7 +7,7 @@ public class NodeLogger {
 
     private static final Logger LOGGER = Logger.getLogger(NodeLogger.class.getName());
 
-    NodeLogger() {
+    public NodeLogger() {
     }
 
     public void logServerDetails(String serverIp, int serverPort) {
@@ -16,7 +16,7 @@ public class NodeLogger {
                 new Object[] { serverIp, Integer.toString(serverPort), 2 });
     }
 
-    public void logMessage(String msg) {
+    public static void logMessage(String msg) {
         LOGGER.log(Level.INFO, msg);
     }
 
