@@ -19,7 +19,7 @@ public class App {
         int serverPort = settings.getUDPPort();
         Peer masterPeer = new Peer(serverIP, serverPort); // DHT master peer
 
-        NodeCLI nodeCLI = new NodeCLI(masterPeer);
+        NodeCLI nodeCLI = new NodeCLI(masterPeer, PICTURES_DIRECTORY);
         // init: ask for all dht servers info
         nodeCLI.init();
         // inform and update: add node's own pictures to network

@@ -1,7 +1,3 @@
-// http version ok
-// threaded
-// machines interact
-// dht updates
 package com.ats.node;
 
 import com.ats.node.models.Peer;
@@ -10,10 +6,11 @@ import java.util.List;
 
 public class NodeCLI {
 
-    Peer masterPeer;
-    NodeLogger logger;
+    private Peer masterPeer;
+    private NodeLogger logger;
+    private String directory;
 
-    public NodeCLI(Peer peer) {
+    public NodeCLI(Peer peer, String directory) {
         this.masterPeer = peer;
         this.logger = new NodeLogger();
     }
@@ -60,6 +57,14 @@ public class NodeCLI {
         // udpClient.sendPacket(exitMsg);
         // message format not defined yet
         // Message responseMsg = udpClient.receive();
+
+        // HTTP req, res
+        FileManager fileManager = new FileManager(directory);
+        if (fileManager.isFileExistent(filename)) {
+            logger.logMessage("File " + filename + "downloaded successfully ...");
+        } else {
+            logger.logMessage("File " + filename + "not downloaded successfully ...");
+        }
     }
 
     public String getUserFilenameInput() {
