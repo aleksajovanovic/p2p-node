@@ -22,6 +22,10 @@ public class Settings {
         }
     }
 
+    public String getNodeContentDir() {
+        return this.json.getJSONObject("node").getString("contentDir");
+    }
+
     public String getServerPoolIp() {
         return this.json.getJSONObject("serverPool").getString("masterIp");
     }

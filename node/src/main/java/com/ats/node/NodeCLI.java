@@ -1,7 +1,3 @@
-// http version ok
-// threaded
-// machines interact
-// dht updates
 package com.ats.node;
 
 import com.ats.node.models.Peer;
@@ -10,16 +6,17 @@ import java.util.List;
 
 public class NodeCLI {
 
-    Peer masterPeer;
-    NodeLogger logger;
+    private Peer masterPeer;
+    private NodeLogger logger;
+    private String directory;
 
-    public NodeCLI(Peer peer) {
+    public NodeCLI(Peer peer, String directory) {
         this.masterPeer = peer;
         this.logger = new NodeLogger();
     }
 
     public void init() {
-        logger.logMessage("Creating init packet...");
+        NodeLogger.logMessage("Creating init packet...");
         Message initMsg = new Message("init", "");
         // UDPClient udpClient = new UDPClient(masterPeer);
         // udpClient.sendPacket(initMsg);
@@ -33,7 +30,7 @@ public class NodeCLI {
         List<String> filenames = fileManager.getFilenames();
 
         for (String file : filenames) {
-            logger.logMessage("Creating informAndUpdate packet for " + file + "...");
+            NodeLogger.logMessage("Creating informAndUpdate packet for " + file + "...");
             // single thread
             // generate and obtain hash here
             Message informMsg = new Message("informAndUpdate", file);
@@ -44,7 +41,7 @@ public class NodeCLI {
     }
 
     public void exit() {
-        logger.logMessage("Creating exit packet ...");
+        NodeLogger.logMessage("Creating exit packet ...");
         Message exitMsg = new Message("exit", "");
         // UDPClient udpClient = new UDPClient(masterPeer);
         // udpClient.sendPacket(exitMsg);
@@ -53,13 +50,21 @@ public class NodeCLI {
     }
 
     public void query(String filename) {
-        logger.logMessage("Creating query packet ...");
+        NodeLogger.logMessage("Creating query packet ...");
         // need to hash
         Message exitMsg = new Message("query", "");
         // UDPClient udpClient = new UDPClient(masterPeer);
         // udpClient.sendPacket(exitMsg);
         // message format not defined yet
         // Message responseMsg = udpClient.receive();
+
+        // HTTP req, res
+        FileManager fileManager = new FileManager(directory);
+        if (fileManager.isFileExistent(filename)) {
+            NodeLogger.logMessage("File " + filename + "downloaded successfully ...");
+        } else {
+            NodeLogger.logMessage("File " + filename + "not downloaded successfully ...");
+        }
     }
 
     public String getUserFilenameInput() {
@@ -67,7 +72,7 @@ public class NodeCLI {
         System.out.println("Type the filename to query and press enter!");
         String filename = userInput.next();
         System.out.println("=====================================================================");
-        logger.logMessage("Creating query packet ...");
+        NodeLogger.logMessage("Creating query packet ...");
         return filename;
     }
 
