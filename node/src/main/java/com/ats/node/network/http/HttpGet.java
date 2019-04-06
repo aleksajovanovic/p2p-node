@@ -1,27 +1,25 @@
+package com.ats.node.network.http;
+
 import java.io.*;
-import java.net.*
+import java.net.*;
 
-public class HttpURLConnectionExample {
 
-	private final String USER_AGENT = "Mozilla/5.0";
-
+public class HttpGet{
 	// HTTP GET request
-	private void sendGet(IP) throws Exception {
+	public void sendGet() throws Exception {
 		
-		HttpURLConnection con = (HttpURLConnection) new URL(IP).openConnection();
+		URL url = new URL("http://www.google.com/");
+
+		HttpURLConnection con = (HttpURLConnection) url.openConnection();
 
 		// optional default is GET
 		con.setRequestMethod("GET");
-
-		//add request header
-		con.setRequestProperty("User-Agent", USER_AGENT);
 
 		int responseCode = con.getResponseCode();
 		System.out.println("\nSending 'GET' request to node : " + url);
 		System.out.println("Response Code : " + responseCode);
 
-		BufferedReader in = new BufferedReader(
-		        new InputStreamReader(con.getInputStream()));
+		BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
 		String inputLine;
 		StringBuffer response = new StringBuffer();
 
@@ -34,3 +32,5 @@ public class HttpURLConnectionExample {
 		System.out.println(response.toString());
 
 	}
+}
+
