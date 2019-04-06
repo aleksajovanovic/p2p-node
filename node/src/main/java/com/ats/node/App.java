@@ -1,6 +1,7 @@
 package com.ats.node;
 
 import com.ats.node.models.Peer;
+import com.ats.node.network.http.server.*;
 
 import java.util.Scanner;
 
@@ -11,7 +12,9 @@ public class App {
 
     public static void main(String[] args) {
 
-        NodeLogger logger = new NodeLogger();
+        // init HTTPServer in separete thread.
+        Thread httpServerThread = new Thread(new HTTPServerManager());
+        httpServerThread.start();
 
         // acquire master's server pool ip, udp port
         Settings settings = new Settings(SETTINGS_FILENAME);
