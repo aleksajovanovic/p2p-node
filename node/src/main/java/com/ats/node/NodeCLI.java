@@ -1,7 +1,10 @@
 package com.ats.node;
 
 import com.ats.node.models.Peer;
+import com.ats.node.network.udp.client.UDPClient;
+
 import java.util.Scanner;
+import java.util.HashMap;
 import java.util.List;
 
 public class NodeCLI {
@@ -15,13 +18,15 @@ public class NodeCLI {
         this.logger = new NodeLogger();
     }
 
-    public void init() {
+    public HashMap<String, String> init() {
         NodeLogger.logMessage("Creating init packet...");
+
         Message initMsg = new Message("init", "");
-        // UDPClient udpClient = new UDPClient(masterPeer);
-        // udpClient.sendPacket(initMsg);
-        // message format not defined yet
-        // Message responseMsg = udpClient.receive();
+        UDPClient udpClient = new UDPClient(masterPeer);
+        udpClient.sendPacket(initMsg);
+        Message responseMsg = udpClient.receive();
+
+        return responseMsg.getInitResponse();
     }
 
     public void informAndUpdate(String directory) {
@@ -31,34 +36,50 @@ public class NodeCLI {
 
         for (String file : filenames) {
             NodeLogger.logMessage("Creating informAndUpdate packet for " + file + "...");
-            // single thread
-            // generate and obtain hash here
+
             Message informMsg = new Message("informAndUpdate", file);
-            // UDPClient tempUDPCLient = new UDPClient(this.masterPeer);
-            // tempUDPCLient.sendPacket(informMsg);
-            // Message tempResponseMsg = tempUDPCLient.receive();
+            UDPClient tempUDPCLient = new UDPClient(this.masterPeer);
+            tempUDPCLient.sendPacket(informMsg);
+            Message tempResponseMsg = tempUDPCLient.receive();
+
+            if (!tempResponseMsg.getInformAndUpdateResponse()) {
+                NodeLogger.logMessage("Failed to add " + file + "to Server Pool");
+            }
+            NodeLogger.logMessage("Successfully added" + file + "to Server Pool");
+
         }
     }
 
     public void exit() {
         NodeLogger.logMessage("Creating exit packet ...");
         Message exitMsg = new Message("exit", "");
-        // UDPClient udpClient = new UDPClient(masterPeer);
-        // udpClient.sendPacket(exitMsg);
-        // message format not defined yet
-        // Message responseMsg = udpClient.receive();
+        UDPClient udpClient = new UDPClient(masterPeer);
+        udpClient.sendPacket(exitMsg);
+        Message responseMsg = udpClient.receive();
+
+        if (!responseMsg.getInformAndUpdateResponse()) {
+            NodeLogger.logMessage("Failed to inform server pool that peer will leave network");
+        }
+        NodeLogger.logMessage("Server pool removed peer from network");
     }
 
     public void query(String filename) {
         NodeLogger.logMessage("Creating query packet ...");
         // need to hash
         Message exitMsg = new Message("query", "");
-        // UDPClient udpClient = new UDPClient(masterPeer);
-        // udpClient.sendPacket(exitMsg);
-        // message format not defined yet
-        // Message responseMsg = udpClient.receive();
+        UDPClient udpClient = new UDPClient(masterPeer);
+        udpClient.sendPacket(exitMsg);
+        Message responseMsg = udpClient.receive();
 
-        // HTTP req, res
+        String res = responseMsg.getQueryResponse()
+        if (!res.equals("")) {
+            NodeLogger.logMessage("File not found in any of the peers");
+        } else {
+            NodeLogger.logMessage("File found at peer with ip: " + res);
+        }
+
+        // Here execute HTTP Client GET request
+
         FileManager fileManager = new FileManager(directory);
         if (fileManager.isFileExistent(filename)) {
             NodeLogger.logMessage("File " + filename + "downloaded successfully ...");

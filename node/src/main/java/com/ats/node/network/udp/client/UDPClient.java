@@ -53,7 +53,7 @@ public class UDPClient {
     }
 
     private Message proccessMsg(String string) {
-        String[] data = string.split("\n");
+        String[] data = string.split("%");
         Message msg = new Message(data[0], data[1]);
 
         return msg;
