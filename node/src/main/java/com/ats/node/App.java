@@ -3,6 +3,7 @@ package com.ats.node;
 import com.ats.node.models.Peer;
 import com.ats.node.network.http.server.*;
 
+import java.util.HashMap;
 import java.util.Scanner;
 
 public class App {
@@ -23,8 +24,10 @@ public class App {
         Peer masterPeer = new Peer(serverIP, serverPort); // DHT master peer
 
         NodeCLI nodeCLI = new NodeCLI(masterPeer, PICTURES_DIRECTORY);
+
         // init: ask for all dht servers info
-        nodeCLI.init();
+        HashMap<String, String> dhtServers = nodeCLI.init();
+
         // inform and update: add node's own pictures to network
         nodeCLI.informAndUpdate(PICTURES_DIRECTORY);
 
