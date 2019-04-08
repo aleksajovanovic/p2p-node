@@ -47,9 +47,9 @@ public class App {
             System.out.println("=====================================================================");
 
             switch (userInput) {
-            case 1:("=====================================================================");
+            case 1:
                 String filename = nodeCLI.getUserFilenameInput();
-                nodeCLI.query(filename);("=====================================================================");
+                nodeCLI.query(filename);
                 userInput = -1;
                 break;
             case 2:
