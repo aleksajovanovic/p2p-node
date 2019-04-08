@@ -13,8 +13,6 @@ public class App {
     public static void main(String[] args) {
 
         // init HTTPServer in separete thread.
-        Thread httpServerThread = new Thread(new HTTPServerManager());
-        httpServerThread.start();
 
         // acquire master's server pool ip, udp port
         Settings settings = new Settings(SETTINGS_FILENAME);
