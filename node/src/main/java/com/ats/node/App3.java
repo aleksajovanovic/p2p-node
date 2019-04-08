@@ -1,13 +1,13 @@
 package com.ats.node;
 
 import java.net.*;
-import com.ats.node.network.http.HttpGet;
+import com.ats.node.network.http.HttpClient;
 
 public class App3 {
 
     public static void main(String[] args) throws Exception {
         try{
-            HttpGet http = new HttpGet();
+            HttpClient http = new HttpClient();
 
             System.out.println("Testing 1 - Send Http GET request");
             String file = ("belgrade.jpg");

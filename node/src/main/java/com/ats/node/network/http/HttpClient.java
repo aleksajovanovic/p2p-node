@@ -2,7 +2,7 @@ package com.ats.node.network.http;
 
 import java.io.*;
 import java.net.*;
-public class HttpGet{
+public class HttpClient{
 
 	// HTTP GET request
 	public void sendGet(URL url, String file) throws Exception {

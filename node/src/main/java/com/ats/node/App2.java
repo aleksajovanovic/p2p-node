@@ -2,7 +2,7 @@ package com.ats.node;
 
 import java.net.*;
 
-import com.ats.node.network.http.MyHandler;
+import com.ats.node.network.http.ServerHandler;
 import com.sun.net.httpserver.HttpServer;
 
 public class App2 {
@@ -18,7 +18,7 @@ public class App2 {
         //httpServerThread.start();
 
         HttpServer server = HttpServer.create(new InetSocketAddress(8000), 0);
-        server.createContext("/", new MyHandler());
+        server.createContext("/", new ServerHandler());
         server.setExecutor(null); // creates a default executor
         server.start();
 

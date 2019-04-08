@@ -8,10 +8,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 
-public class MyHandler implements HttpHandler, Runnable {
+public class ServerHandler implements HttpHandler, Runnable {
     public void handle(HttpExchange t) throws IOException {
         try{
-            Map <String,String>parms = MyHandler.queryToMap(t.getRequestURI().getQuery());
+            Map <String,String>parms = ServerHandler.queryToMap(t.getRequestURI().getQuery());
             String path = "src/main/resources/pictures/" + parms.get("param1");
             File f = new File(path);
             if(f.exists()){
