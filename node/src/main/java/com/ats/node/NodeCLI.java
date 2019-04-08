@@ -104,7 +104,7 @@ public class NodeCLI {
         System.out.println("2 - informAndUpdate");
         System.out.println("3 - exit");
         System.out.print("Command: ");
-
+        
     }
 
     public void printInvalidInputMsg() {
