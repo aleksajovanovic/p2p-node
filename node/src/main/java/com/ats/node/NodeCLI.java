@@ -44,9 +44,9 @@ public class NodeCLI {
 
             if (!tempResponseMsg.getInformAndUpdateResponse()) {
                 NodeLogger.logMessage("Failed to add " + file + "to Server Pool");
+            } else {
+                NodeLogger.logMessage("Successfully added" + file + "to Server Pool");
             }
-            NodeLogger.logMessage("Successfully added" + file + "to Server Pool");
-
         }
     }
 
@@ -71,7 +71,7 @@ public class NodeCLI {
         udpClient.sendPacket(exitMsg);
         Message responseMsg = udpClient.receive();
 
-        String res = responseMsg.getQueryResponse()
+        String res = responseMsg.getQueryResponse();
         if (!res.equals("")) {
             NodeLogger.logMessage("File not found in any of the peers");
         } else {
