@@ -2,7 +2,7 @@ package com.ats.node;
 
 import java.net.*;
 
-import com.ats.node.network.http.ServerHandler;
+import com.ats.node.network.http.server.ServerHandler;
 import com.sun.net.httpserver.HttpServer;
 
 public class App2 {

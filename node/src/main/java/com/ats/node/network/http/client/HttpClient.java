@@ -1,4 +1,4 @@
-package com.ats.node.network.http;
+package com.ats.node.network.http.client;
 
 import java.io.*;
 import java.net.*;

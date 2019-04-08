@@ -1,4 +1,4 @@
-package com.ats.node.network.http;
+package com.ats.node.network.http.server;
 
 import com.ats.node.NodeLogger;
 import com.sun.net.httpserver.*;

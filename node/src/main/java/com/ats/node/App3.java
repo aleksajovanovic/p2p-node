@@ -1,7 +1,7 @@
 package com.ats.node;
 
 import java.net.*;
-import com.ats.node.network.http.HttpClient;
+import com.ats.node.network.http.client.HttpClient;
 
 public class App3 {
 
