@@ -18,6 +18,5 @@ public class App3 {
         }catch(ConnectException e){
             System.out.println(e.getMessage());
         }
-        System.out.println("here");
     }
 }

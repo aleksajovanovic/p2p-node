@@ -9,19 +9,37 @@ import java.util.Map;
 
 public class MyHandler implements HttpHandler, Runnable {
     public void handle(HttpExchange t) throws IOException {
-        Map <String,String>parms = MyHandler.queryToMap(t.getRequestURI().getQuery());
-        String path = "src/main/resources/pictures/" + parms.get("param1");
-        File f = new File(path);
+        try{
+            Map <String,String>parms = MyHandler.queryToMap(t.getRequestURI().getQuery());
+            String path = "src/main/resources/pictures/" + parms.get("param1");
+            File f = new File(path);
+            if(f.exists()){
+                NodeLogger.logMessage("File Exists:Sending File");
+                String response = "Sending File";
 
-        NodeLogger.logMessage("File Exists");
-        String response = "Request recieved";
+                byte[] bs = response.getBytes();
+                t.sendResponseHeaders(200, f.length());
+                OutputStream os = t.getResponseBody();
+                Files.copy(f.toPath(), os);
+                os.close();
+            }else{
+                NodeLogger.logMessage("File Does not Exist:Sending Error");
+                String response = "File Does Not Exist";
 
-        t.sendResponseHeaders(200, response.length());
-        OutputStream os = t.getResponseBody();
-        PrintWriter pw = new PrintWriter(os, true);
-        pw.println(os);
-        os.close();
+                byte[] bs = response.getBytes("UTF-8");
+                t.sendResponseHeaders(404, bs.length);
+                OutputStream os = t.getResponseBody();
+                os.write(bs);
+                os.close();
+            } 
+
+            
+        }catch(Exception e){
+            System.out.println(e);
+            e.printStackTrace();
+        }       
     }
+
     //puts query parameter into map
     public static Map<String, String> queryToMap(String query){
         Map<String, String> result = new HashMap<String, String>();
