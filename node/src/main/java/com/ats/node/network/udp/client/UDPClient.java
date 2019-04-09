@@ -27,8 +27,8 @@ public class UDPClient {
 
         try {
             this.socket.receive(packet);
-            Message msg = proccessMsg(new String(packet.getData()));
 
+            Message msg = proccessMsg(new String(packet.getData()));
             return msg;
         } catch (IOException e) {
             System.out.println("Error receiving packet from server: ");

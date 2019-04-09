@@ -40,16 +40,22 @@ public class NodeCLI {
         UDPClient tempUDPCLient = new UDPClient(this.masterPeer);
 
         for (String file : filenames) {
-            NodeLogger.logMessage("Creating informAndUpdate packet for " + file + "...");
 
-            Message informMsg = new Message("informAndUpdate", file);
-            tempUDPCLient.sendPacket(informMsg);
-            Message tempResponseMsg = tempUDPCLient.receive();
+            if (file.equals("belgrade.jpg")) {
 
-            if (tempResponseMsg.getInformAndUpdateResponse()) {
-                NodeLogger.logMessage("Successfully added" + file + "to Server Pool");
-            } else {
-                NodeLogger.logMessage("Failed to add " + file + "to Server Pool");
+                NodeLogger.logMessage("Creating informAndUpdate packet for " + file + "...");
+
+                int hash = (Utils.hash(file) % 2) + 1;
+                System.out.println("HASH: " + hash);
+
+                Message informMsg = new Message("informAndUpdate", file);
+                tempUDPCLient.sendPacket(informMsg);
+                Message tempResponseMsg = tempUDPCLient.receive();
+                if (tempResponseMsg.getInformAndUpdateResponse()) {
+                    NodeLogger.logMessage("Successfully added" + file + "to Server Pool");
+                } else {
+                    NodeLogger.logMessage("Failed to add " + file + "to Server Pool");
+                }
             }
         }
     }
