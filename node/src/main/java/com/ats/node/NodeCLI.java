@@ -1,9 +1,11 @@
 package com.ats.node;
 
 import com.ats.node.models.Peer;
+import com.ats.node.network.http.client.HttpClient;
 import com.ats.node.network.udp.client.UDPClient;
 
 import java.util.Scanner;
+import java.net.URL;
 import java.util.HashMap;
 import java.util.List;
 
@@ -76,6 +78,15 @@ public class NodeCLI {
             NodeLogger.logMessage("File not found in any of the peers");
         } else {
             NodeLogger.logMessage("File found at peer with ip: " + res);
+            try{
+                HttpClient http = new HttpClient();
+                System.out.println("Testing 1 - Send Http GET request");
+                URL url = new URL("http://" + res + ":" + "20410" + "/?param1=" + filename);
+
+                http.sendGet(url, filename);
+            }catch(Exception e){
+                System.out.println(e.getMessage());
+            }
         }
 
         // Here execute HTTP Client GET request
