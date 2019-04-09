@@ -57,21 +57,20 @@ public class Message {
     }
 
     public boolean getInformAndUpdateResponse() {
-        String[] data = this.message.split("%");
-        String[] message = data[1].split(",");
-
-        return message[0].equals("OK") ? true : false;
+        String responseCode = this.message;
+        if (responseCode.contains("OK")) {
+            return true;
+        }
+        return false;
     }
 
     public boolean getExitResponse() {
-        String[] data = this.message.split("%");
-        String[] message = data[1].split(",");
-        return message[0].equals("OK") ? true : false;
+
+        return this.message.equals("OK") ? true : false;
     }
 
     public String getQueryResponse() {
-        String[] data = this.message.split("%");
-        String[] message = data[1].split(",");
+        String[] message = this.message.split(",");
 
         if (message[0].equals("OK")) {
             return message[1];

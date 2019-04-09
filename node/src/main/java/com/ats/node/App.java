@@ -30,7 +30,7 @@ public class App {
         NodeLogger.logDHTServerDetails(dhtServers);
 
         // inform and update: add node's own pictures to network
-        // nodeCLI.informAndUpdate(PICTURES_DIRECTORY);
+        nodeCLI.informAndUpdate(PICTURES_DIRECTORY);
 
         // Scanner choose = new Scanner(System.in);
         // int userInput = -1;

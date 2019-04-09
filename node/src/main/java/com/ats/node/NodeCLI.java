@@ -37,19 +37,19 @@ public class NodeCLI {
         // inform and update: add node's own pictures to network
         FileManager fileManager = new FileManager(directory);
         List<String> filenames = fileManager.getFilenames();
+        UDPClient tempUDPCLient = new UDPClient(this.masterPeer);
 
         for (String file : filenames) {
             NodeLogger.logMessage("Creating informAndUpdate packet for " + file + "...");
 
             Message informMsg = new Message("informAndUpdate", file);
-            UDPClient tempUDPCLient = new UDPClient(this.masterPeer);
             tempUDPCLient.sendPacket(informMsg);
             Message tempResponseMsg = tempUDPCLient.receive();
 
-            if (!tempResponseMsg.getInformAndUpdateResponse()) {
-                NodeLogger.logMessage("Failed to add " + file + "to Server Pool");
-            } else {
+            if (tempResponseMsg.getInformAndUpdateResponse()) {
                 NodeLogger.logMessage("Successfully added" + file + "to Server Pool");
+            } else {
+                NodeLogger.logMessage("Failed to add " + file + "to Server Pool");
             }
         }
     }
