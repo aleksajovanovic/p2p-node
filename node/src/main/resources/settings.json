@@ -1,7 +1,7 @@
 {
     "serverPool": {
-        "masterIp": "localhost",
-        "UDPPort": 20410
+        "masterIp": "108.168.39.196",
+        "UDPPort": 17604
     },
     "node": {
         "contentDir": "/pictures"

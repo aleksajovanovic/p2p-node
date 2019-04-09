@@ -20,7 +20,7 @@ public class NodeLogger {
 
     public static void logDHTServerDetails(HashMap<String, String> dhtServer) {
 
-        LOGGER.log(Level.INFO, "DHT Servers details obtained\n");
+        LOGGER.log(Level.INFO, "DHT Servers details");
 
         for (Entry<String, String> entry : dhtServer.entrySet()) {
             System.out.println("ID: " + entry.getKey() + " , IP: " + entry.getValue());

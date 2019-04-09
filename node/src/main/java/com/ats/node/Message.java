@@ -41,15 +41,13 @@ public class Message {
     public HashMap<String, String> getInitResponse() {
 
         HashMap<String, String> dhtServers = new HashMap<String, String>();
-        String[] data = this.message.split("%");
-        String[] message = data[1].split(",");
+        String[] message = this.message.split(",");
 
         if (message[0].equals("OK")) {
 
-            for (int i = 0; i < message.length; i++) {
+            for (int i = 1; i < message.length; i++) {
                 dhtServers.put(Integer.toString(i), message[i]);
             }
-            NodeLogger.logDHTServerDetails(dhtServers);
 
         } else if (message[0].equals("ERR")) {
             NodeLogger.logMessage("UDPServer error: " + message[1]);

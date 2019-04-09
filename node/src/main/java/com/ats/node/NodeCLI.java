@@ -26,7 +26,9 @@ public class NodeCLI {
         Message initMsg = new Message("init", "");
         UDPClient udpClient = new UDPClient(masterPeer);
         udpClient.sendPacket(initMsg);
+        NodeLogger.logMessage("init packet sent...");
         Message responseMsg = udpClient.receive();
+        NodeLogger.logMessage("init packet received...");
 
         return responseMsg.getInitResponse();
     }
@@ -78,13 +80,13 @@ public class NodeCLI {
             NodeLogger.logMessage("File not found in any of the peers");
         } else {
             NodeLogger.logMessage("File found at peer with ip: " + res);
-            try{
+            try {
                 HttpClient http = new HttpClient();
                 System.out.println("Testing 1 - Send Http GET request");
                 URL url = new URL("http://" + res + ":" + "20410" + "/?param1=" + filename);
 
                 http.sendGet(url, filename);
-            }catch(Exception e){
+            } catch (Exception e) {
                 System.out.println(e.getMessage());
             }
         }

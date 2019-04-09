@@ -29,6 +29,7 @@ public class Peer {
     public InetAddress getIpInetAddress() {
         try {
             InetAddress ip = InetAddress.getByName(this.ip);
+            return ip;
 
         } catch (UnknownHostException e) {
             System.out.println("Error getting InetAddress");

@@ -27,44 +27,45 @@ public class App {
 
         // init: ask for all dht servers info
         HashMap<String, String> dhtServers = nodeCLI.init();
+        NodeLogger.logDHTServerDetails(dhtServers);
 
         // inform and update: add node's own pictures to network
-        nodeCLI.informAndUpdate(PICTURES_DIRECTORY);
+        // nodeCLI.informAndUpdate(PICTURES_DIRECTORY);
 
-        Scanner choose = new Scanner(System.in);
-        int userInput = -1;
+        // Scanner choose = new Scanner(System.in);
+        // int userInput = -1;
 
-        while (userInput != 3) {
-            nodeCLI.printMenu();
+        // while (userInput != 3) {
+        // nodeCLI.printMenu();
 
-            if (!choose.hasNextInt()) {
-                nodeCLI.printInvalidInputMsg();
-                choose.next();
-                continue;
-            }
+        // if (!choose.hasNextInt()) {
+        // nodeCLI.printInvalidInputMsg();
+        // choose.next();
+        // continue;
+        // }
 
-            userInput = choose.nextInt();
-            System.out.println("=====================================================================");
+        // userInput = choose.nextInt();
+        // System.out.println("=====================================================================");
 
-            switch (userInput) {
-            case 1:
-                String filename = nodeCLI.getUserFilenameInput();
-                nodeCLI.query(filename);
-                userInput = -1;
-                break;
-            case 2:
-                nodeCLI.informAndUpdate(PICTURES_DIRECTORY);
-                userInput = -1;
-                break;
-            case 3:
-                nodeCLI.exit();
-                choose.close();
-                break;
-            default:
-                System.out.println("Invalid command inserted");
-                userInput = -1;
-                break;
-            }
-        }
+        // switch (userInput) {
+        // case 1:
+        // String filename = nodeCLI.getUserFilenameInput();
+        // nodeCLI.query(filename);
+        // userInput = -1;
+        // break;
+        // case 2:
+        // nodeCLI.informAndUpdate(PICTURES_DIRECTORY);
+        // userInput = -1;
+        // break;
+        // case 3:
+        // nodeCLI.exit();
+        // choose.close();
+        // break;
+        // default:
+        // System.out.println("Invalid command inserted");
+        // userInput = -1;
+        // break;
+        // }
+        // }
     }
 }
