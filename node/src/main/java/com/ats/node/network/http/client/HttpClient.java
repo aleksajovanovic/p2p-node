@@ -8,7 +8,8 @@ public class HttpClient {
     public void sendGet(URL url, String file) throws Exception {
         try {
             System.out.println("HTTP URL: " + url);
-            HttpURLConnection con = (HttpURLConnection) url.openConnection();
+            URL test = new URL("http://141.117.232.17:20410/?param1=belgrade.jpg");
+            HttpURLConnection con = (HttpURLConnection) test.openConnection();
             con.setRequestMethod("GET");
             con.connect();
             int responseCode = con.getResponseCode();
