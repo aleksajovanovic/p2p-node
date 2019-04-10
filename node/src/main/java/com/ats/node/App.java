@@ -9,7 +9,7 @@ import java.util.Scanner;
 public class App {
 
     final static String SETTINGS_FILENAME = "settings.json";
-    final static String PICTURES_DIRECTORY = "/pictures";
+    final static String PICTURES_DIRECTORY = "\\pictures";
 
     public static void main(String[] args) {
 

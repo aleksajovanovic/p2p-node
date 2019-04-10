@@ -23,6 +23,7 @@ public class FileManager {
     private void getResourceFiles() {
 
         System.out.println("getResourceFiles()");
+
         try (InputStream in = getResourceAsStream(this.directory);
                 BufferedReader br = new BufferedReader(new InputStreamReader(in))) {
 
