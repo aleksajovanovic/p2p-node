@@ -23,7 +23,7 @@ public class ServerHandler implements HttpHandler {
                 byte[] bs = response.getBytes();
                 Headers responseHeaders = t.getResponseHeaders(); 
                 responseHeaders.set("Content-Type","image/jpeg");
-                t.sendResponseHeaders(200, 0);
+                t.sendResponseHeaders(200, f.length());
                 OutputStream os = t.getResponseBody();
                 Files.copy(f.toPath(), os);
                 os.close();
