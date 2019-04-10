@@ -21,7 +21,7 @@ public class App {
         // Settings settings = new Settings(SETTINGS_FILENAME);
         // String serverIP = settings.getServerPoolIp();
         // int serverPort = settings.getUDPPort();
-        Peer masterPeer = new Peer("ENG201-07", 20401); // DHT master peer
+        Peer masterPeer = new Peer("ENG201-07", 20410); // DHT master peer
 
         NodeCLI nodeCLI = new NodeCLI(masterPeer, PICTURES_DIRECTORY);
 
