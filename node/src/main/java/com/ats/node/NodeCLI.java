@@ -37,12 +37,12 @@ public class NodeCLI {
         // inform and update: add node's own pictures to network
         FileManager fileManager = new FileManager(directory);
         List<String> filenames = fileManager.getFilenames();
+        System.out.println("Inform");
 
         for (String file : filenames) {
 
             UDPClient tempUDPCLient = new UDPClient(this.masterPeer);
             NodeLogger.logMessage("Creating informAndUpdate packet for " + file + "...");
-            System.out.println("Inform");
             int hash = (Utils.hash(file) % 2) + 1;
             System.out.println("HASH: " + hash);
 

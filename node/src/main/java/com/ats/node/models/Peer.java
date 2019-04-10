@@ -28,7 +28,6 @@ public class Peer {
 
     public InetAddress getIpInetAddress() {
         try {
-            System.out.println(this.ip);
             InetAddress ip = InetAddress.getByName(this.ip);
             return ip;
 
