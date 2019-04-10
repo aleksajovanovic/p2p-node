@@ -10,7 +10,7 @@ public class HttpClient {
             System.out.println("HTTP URL: " + url);
             HttpURLConnection con = (HttpURLConnection) url.openConnection();
             con.setRequestMethod("GET");
-
+            con.connect();
             int responseCode = con.getResponseCode();
             System.out.println("\nSending 'GET' request to node : " + url);
 
