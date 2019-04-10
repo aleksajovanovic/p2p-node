@@ -22,12 +22,14 @@ public class FileManager {
 
     private void getResourceFiles() {
 
+        System.out.println("getResourceFiles()");
         try (InputStream in = getResourceAsStream(this.directory);
                 BufferedReader br = new BufferedReader(new InputStreamReader(in))) {
 
             String resource;
 
             while ((resource = br.readLine()) != null) {
+                System.out.println(resource);
                 this.filenames.add(resource);
             }
 
@@ -48,10 +50,12 @@ public class FileManager {
     }
 
     private ClassLoader getContextClassLoader() {
+        System.out.println("getContextClassLoader()");
         return Thread.currentThread().getContextClassLoader();
     }
 
     private InputStream getResourceAsStream(String resource) {
+        System.out.println("getResourceAsStream()");
         final InputStream in = getContextClassLoader().getResourceAsStream(resource);
 
         return in == null ? getClass().getResourceAsStream(resource) : in;
