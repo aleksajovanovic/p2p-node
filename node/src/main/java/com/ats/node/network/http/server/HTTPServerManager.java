@@ -13,13 +13,13 @@ public class HTTPServerManager implements Runnable {
     public void run() {
         try {
 
-            
-            int port = 20410;
+            NodeLogger.logMessage("HTTServerManager running in separate thread: " + Thread.currentThread().getId());
+            int port = 20415;
             HttpServer server = HttpServer.create(new InetSocketAddress(port), 0);
             server.createContext("/", new ServerHandler());
             server.setExecutor(null); // creates a default executor
             server.start();
-            NodeLogger.logMessage("HTTServerManager running in separate thread: " + Thread.currentThread().getId());
+            
 
         } catch (Exception e) {
             System.out.println("Error ocurred in HTTPServerManager: ");
