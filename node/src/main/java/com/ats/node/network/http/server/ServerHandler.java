@@ -3,18 +3,15 @@ package com.ats.node.network.http.server;
 import com.ats.node.NodeLogger;
 import com.sun.net.httpserver.*;
 
-import java.awt.image.BufferedImage;
-import java.awt.image.DataBufferByte;
-import java.awt.image.WritableRaster;
 import java.io.*;
 import java.nio.file.Files;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.imageio.ImageIO;
 
 
-public class ServerHandler implements HttpHandler, Runnable {
+
+public class ServerHandler implements HttpHandler {
     public void handle(HttpExchange t) throws IOException {
         try {
             Map<String, String> parms = ServerHandler.queryToMap(t.getRequestURI().getQuery());
@@ -62,10 +59,5 @@ public class ServerHandler implements HttpHandler, Runnable {
             }
         }
         return result;
-    }
-
-    @Override
-    public void run() {
-
     }
 }
