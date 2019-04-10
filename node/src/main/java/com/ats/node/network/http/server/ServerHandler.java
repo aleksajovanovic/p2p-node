@@ -8,9 +8,6 @@ import java.nio.file.Files;
 import java.util.HashMap;
 import java.util.Map;
 
-
-
-
 public class ServerHandler implements HttpHandler {
     public void handle(HttpExchange t) throws IOException {
         try {
