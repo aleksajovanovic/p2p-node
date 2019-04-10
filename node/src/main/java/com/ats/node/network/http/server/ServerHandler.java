@@ -3,17 +3,11 @@ package com.ats.node.network.http.server;
 import com.ats.node.NodeLogger;
 import com.sun.net.httpserver.*;
 
-import static java.awt.image.DataBuffer.getDataTypeSize;
-
-import java.awt.image.BufferedImage;
-import java.awt.image.DataBufferByte;
-import java.awt.image.WritableRaster;
 import java.io.*;
 import java.nio.file.Files;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.imageio.ImageIO;
 
 public class ServerHandler implements HttpHandler, Runnable {
     public void handle(HttpExchange t) throws IOException {
@@ -27,27 +21,11 @@ public class ServerHandler implements HttpHandler, Runnable {
                 NodeLogger.logMessage("File Exists:Sending File");
                 String response = "Sending File";
 
-                // byte[] bs = response.getBytes();
-                // t.sendResponseHeaders(200, bs.length);
-                // OutputStream os = t.getResponseBody();
-                // Files.copy(f.toPath(), os);
-                // os.close();
-
-                BufferedImage bufferedImage = ImageIO.read(f);
-
-                WritableRaster writableRaster = bufferedImage.getRaster();
-                DataBufferByte data = (DataBufferByte) writableRaster.getDataBuffer();
-
-                t.sendResponseHeaders(200, getDataTypeSize(1024));
-                OutputStream outputStream=t.getResponseBody();
-                for (byte[] dataBank : data.getBankData()) {
-                    outputStream.write(dataBank);
-                }
-                outputStream.close();
-                // t.sendResponseHeaders(200, data.getData().length);
-                // OutputStream outputStream=t.getResponseBody();
-                // outputStream.write(data.getData());
-                // outputStream.close();
+                byte[] bs = response.getBytes();
+                t.sendResponseHeaders(200, bs.length);
+                OutputStream os = t.getResponseBody();
+                Files.copy(f.toPath(), os);
+                os.close();
             } else {
                 NodeLogger.logMessage("File Does not Exist:Sending Error");
                 String response = "File Does Not Exist";
