@@ -19,11 +19,22 @@ public class ServerHandler implements HttpHandler, Runnable {
                 NodeLogger.logMessage("File Exists:Sending File");
                 String response = "Sending File";
 
-                byte[] bs = response.getBytes();
-                t.sendResponseHeaders(200, f.length());
-                OutputStream os = t.getResponseBody();
-                Files.copy(f.toPath(), os);
-                os.close();
+                // byte[] bs = response.getBytes();
+                // t.sendResponseHeaders(200, f.length());
+                // OutputStream os = t.getResponseBody();
+                // Files.copy(f.toPath(), os);
+                // os.close();
+                byte[] data;
+                t.sendResponseHeaders(200, 0);
+                    try (BufferedOutputStream out = new BufferedOutputStream(t.getResponseBody())) {
+                        try (ByteArrayInputStream bis = new ByteArrayInputStream(data)) {
+                            byte [] buffer = new byte [1024];
+                            int count ;
+                            while ((count = bis.read(buffer)) != -1) {
+                                out.write(buffer, 0, count);
+                            }
+                        }
+                    }
             } else {
                 NodeLogger.logMessage("File Does not Exist:Sending Error");
                 String response = "File Does Not Exist";
