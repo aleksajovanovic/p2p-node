@@ -6,6 +6,7 @@ import com.ats.node.network.udp.client.UDPClient;
 
 import java.util.Scanner;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -35,9 +36,13 @@ public class NodeCLI {
 
     public void informAndUpdate(String directory) {
         // inform and update: add node's own pictures to network
-        FileManager fileManager = new FileManager(directory);
-        List<String> filenames = fileManager.getFilenames();
+        // FileManager fileManager = new FileManager(directory);
+        // List<String> filenames = fileManager.getFilenames();
         System.out.println("Inform");
+
+        List<String> filenames = new ArrayList<String>();
+        filenames.add("belgrade.jpg");
+        filenames.add("shrek.jpg");
 
         for (String file : filenames) {
             System.out.println("inform file");
