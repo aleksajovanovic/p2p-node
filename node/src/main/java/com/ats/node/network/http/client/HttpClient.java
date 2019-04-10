@@ -19,7 +19,7 @@ public class HttpClient {
                 FileOutputStream outputStream = new FileOutputStream("src/main/resources/pictures/" + file);
 
                 int bytesRead = -1;
-                byte[] buffer = new byte[1024];
+                byte[] buffer = new byte[3072];
                 while ((bytesRead = inputStream.read(buffer)) != -1) {
                     outputStream.write(buffer, 0, bytesRead);
                 }
