@@ -38,14 +38,12 @@ public class NodeCLI {
         // inform and update: add node's own pictures to network
         // FileManager fileManager = new FileManager(directory);
         // List<String> filenames = fileManager.getFilenames();
-        System.out.println("Inform");
 
         List<String> filenames = new ArrayList<String>();
         filenames.add("belgrade.jpg");
         filenames.add("shrek.jpg");
 
         for (String file : filenames) {
-            System.out.println("inform file");
             UDPClient tempUDPCLient = new UDPClient(this.masterPeer);
             NodeLogger.logMessage("Creating informAndUpdate packet for " + file + "...");
             int hash = (Utils.hash(file) % 2) + 1;
@@ -101,13 +99,12 @@ public class NodeCLI {
             NodeLogger.logMessage("File found at peer with ip: " + res);
             try {
 
-                // String httpServerIP = res.substring(1);
+                String httpServerIP = res.substring(1);
 
                 // HTTP GET request
-                // HttpClient http = new HttpClient();
-                // System.out.println("Testing 1 - Send Http GET request");
-                // URL url = new URL("http://" + httpServerIP + ":" + "20410" + "/?param1=" +
-                // filename);
+                HttpClient http = new HttpClient();
+                System.out.println("Send Http GET request");
+                URL url = new URL("http://" + httpServerIP + ":" + "20410" + "/?param1=" + filename);
 
                 // http.sendGet(url, filename);
             } catch (Exception e) {
