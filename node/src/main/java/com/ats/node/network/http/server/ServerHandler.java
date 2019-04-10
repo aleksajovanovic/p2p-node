@@ -18,9 +18,7 @@ public class ServerHandler implements HttpHandler {
 
             if (f.exists()) {
                 NodeLogger.logMessage("File Exists:Sending File");
-                String response = "Sending File";
-
-                byte[] bs = response.getBytes();
+ 
                 Headers responseHeaders = t.getResponseHeaders(); 
                 responseHeaders.set("Content-Type","image/jpeg");
                 t.sendResponseHeaders(200, f.length());
