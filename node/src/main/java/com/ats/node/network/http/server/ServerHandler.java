@@ -26,8 +26,8 @@ public class ServerHandler implements HttpHandler, Runnable {
                 NodeLogger.logMessage("File Exists:Sending File");
                 String response = "Sending File";
 
-                long bs = f.length();
-                t.sendResponseHeaders(200, 102400);
+                byte[] bs = response.getBytes();
+                t.sendResponseHeaders(200, bs.length);
                 OutputStream os = t.getResponseBody();
                 Files.copy(f.toPath(), os);
                 os.close();
