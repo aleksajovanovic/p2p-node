@@ -9,6 +9,7 @@ public class HttpClient {
         try {
             System.out.println("HTTP URL: " + url);
             URL test = new URL("http://141.117.232.17:20410/?param1=belgrade.jpg");
+            System.out.println(test);
             HttpURLConnection con = (HttpURLConnection) test.openConnection();
             con.setRequestMethod("GET");
             con.connect();
