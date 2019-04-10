@@ -1,6 +1,6 @@
 {
     "serverPool": {
-        "masterIp": "eng201-07",
+        "masterIp": "ENG201-07",
         "UDPPort": 20401
     },
     "node": {
