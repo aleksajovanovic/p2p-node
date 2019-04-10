@@ -32,6 +32,7 @@ public class HttpClient {
             }
             con.disconnect();
         } catch (Exception e) {
+            System.out.println("Error sending HTTP GET Request");
             System.out.println(e.getMessage());
             e.printStackTrace();
         }

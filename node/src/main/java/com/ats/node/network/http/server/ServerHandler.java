@@ -7,14 +7,15 @@ import java.nio.file.Files;
 import java.util.HashMap;
 import java.util.Map;
 
-
 public class ServerHandler implements HttpHandler, Runnable {
     public void handle(HttpExchange t) throws IOException {
-        try{
-            Map <String,String>parms = ServerHandler.queryToMap(t.getRequestURI().getQuery());
+        try {
+            Map<String, String> parms = ServerHandler.queryToMap(t.getRequestURI().getQuery());
             String path = "src/main/resources/pictures/" + parms.get("param1");
             File f = new File(path);
-            if(f.exists()){
+            NodeLogger.logMessage("HTTP SERVER handle: getting file");
+
+            if (f.exists()) {
                 NodeLogger.logMessage("File Exists:Sending File");
                 String response = "Sending File";
 
@@ -23,7 +24,7 @@ public class ServerHandler implements HttpHandler, Runnable {
                 OutputStream os = t.getResponseBody();
                 Files.copy(f.toPath(), os);
                 os.close();
-            }else{
+            } else {
                 NodeLogger.logMessage("File Does not Exist:Sending Error");
                 String response = "File Does Not Exist";
 
@@ -32,28 +33,27 @@ public class ServerHandler implements HttpHandler, Runnable {
                 OutputStream os = t.getResponseBody();
                 os.write(bs);
                 os.close();
-            } 
+            }
 
-            
-        }catch(Exception e){
+        } catch (Exception e) {
             System.out.println(e);
             e.printStackTrace();
-        }       
+        }
     }
 
-    //puts query parameter into map
-    public static Map<String, String> queryToMap(String query){
+    // puts query parameter into map
+    public static Map<String, String> queryToMap(String query) {
         Map<String, String> result = new HashMap<String, String>();
         for (String param : query.split("&")) {
             String pair[] = param.split("=");
-            if (pair.length>1) {
+            if (pair.length > 1) {
                 result.put(pair[0], pair[1]);
-            }else{
+            } else {
                 result.put(pair[0], "");
             }
         }
         return result;
-      }
+    }
 
     @Override
     public void run() {
