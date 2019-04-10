@@ -60,6 +60,10 @@ public class FileManager {
         System.out.println("getResourceAsStream(): Resource: " + resource);
         final InputStream in = getContextClassLoader().getResourceAsStream(resource);
 
+        if (in == null) {
+            System.out.println("in is null");
+
+        }
         return in == null ? getClass().getResourceAsStream(resource) : in;
     }
 
