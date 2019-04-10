@@ -28,6 +28,7 @@ public class FileManager {
                 BufferedReader br = new BufferedReader(new InputStreamReader(in))) {
 
             String resource;
+            System.out.println("getResourceFiles() try...");
 
             while ((resource = br.readLine()) != null) {
                 System.out.println(resource);
@@ -56,7 +57,7 @@ public class FileManager {
     }
 
     private InputStream getResourceAsStream(String resource) {
-        System.out.println("getResourceAsStream()");
+        System.out.println("getResourceAsStream(): Resource: " + resource);
         final InputStream in = getContextClassLoader().getResourceAsStream(resource);
 
         return in == null ? getClass().getResourceAsStream(resource) : in;
