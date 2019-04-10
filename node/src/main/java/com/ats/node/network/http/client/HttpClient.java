@@ -5,10 +5,10 @@ import java.net.*;
 
 public class HttpClient {
 
-    public void sendGet(URL url, String file) throws Exception {
+    public void sendGet(String test, String file) throws Exception {
         try {
-            System.out.println("HTTP URL: " + url);
-            URL test = new URL("http://141.117.232.17:20410/?param1=belgrade.jpg");
+            System.out.println("HTTP URL: " + test);
+            URL url = new URL(test);
             System.out.println(test);
             HttpURLConnection con = (HttpURLConnection) url.openConnection();
             con.setRequestMethod("GET");
