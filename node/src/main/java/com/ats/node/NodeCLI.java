@@ -40,7 +40,7 @@ public class NodeCLI {
         System.out.println("Inform");
 
         for (String file : filenames) {
-
+            System.out.println("inform file");
             UDPClient tempUDPCLient = new UDPClient(this.masterPeer);
             NodeLogger.logMessage("Creating informAndUpdate packet for " + file + "...");
             int hash = (Utils.hash(file) % 2) + 1;
