@@ -14,8 +14,8 @@ public class HTTPServerManager implements Runnable {
         try {
 
             NodeLogger.logMessage("HTTServerManager running in separate thread: " + Thread.currentThread().getId());
-            int port = 20415;
-            HttpServer server = HttpServer.create(new InetSocketAddress(port), 0);
+            int port = 20410;
+            HttpServer server = HttpServer.create(new InetSocketAddress(8000), 0);
             server.createContext("/", new ServerHandler());
             server.setExecutor(null); // creates a default executor
             server.start();
