@@ -9,10 +9,10 @@ public class HttpClient {
         try {
             System.out.println("HTTP URL: " + url);
             URL test = new URL("http://141.117.234.17:20410/?param1=belgrade.jpg");
-            System.out.println(test);
+
             HttpURLConnection con = (HttpURLConnection) test.openConnection();
             con.setRequestMethod("GET");
-
+            System.out.println("here");
             int responseCode = con.getResponseCode();
             System.out.println("\nSending 'GET' request to node : " + url);
 
