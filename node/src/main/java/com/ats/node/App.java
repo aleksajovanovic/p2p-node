@@ -18,10 +18,10 @@ public class App {
         httpServerThread.start();
 
         // acquire master's server pool ip, udp port
-        Settings settings = new Settings(SETTINGS_FILENAME);
-        String serverIP = settings.getServerPoolIp();
-        int serverPort = settings.getUDPPort();
-        Peer masterPeer = new Peer(serverIP, serverPort); // DHT master peer
+        // Settings settings = new Settings(SETTINGS_FILENAME);
+        // String serverIP = settings.getServerPoolIp();
+        // int serverPort = settings.getUDPPort();
+        Peer masterPeer = new Peer("eng201-07", 20401); // DHT master peer
 
         NodeCLI nodeCLI = new NodeCLI(masterPeer, PICTURES_DIRECTORY);
 

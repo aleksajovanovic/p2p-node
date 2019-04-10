@@ -1,7 +1,14 @@
 com\ats\node\network\udp\server\UDPServer.class
 com\ats\node\App.class
 com\ats\node\Settings.class
+com\ats\node\Utils.class
+com\ats\node\NodeCLI.class
 com\ats\node\models\Peer.class
+com\ats\node\NodeLogger.class
+com\ats\node\FileManager.class
+com\ats\node\network\http\server\HTTPServerManager.class
 com\ats\node\network\udp\client\UDPClient.class
+com\ats\node\network\http\server\ServerHandler.class
 com\ats\node\Peer.class
 com\ats\node\Message.class
+com\ats\node\network\http\client\HttpClient.class
