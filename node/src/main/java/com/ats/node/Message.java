@@ -74,8 +74,10 @@ public class Message {
 
         if (message[0].equals("OK")) {
             return message[1];
+        } else if (message[0].contains("ERR")) {
+            return "ERR";
         } else {
-            return "";
+            return "ERR";
         }
     }
 }
