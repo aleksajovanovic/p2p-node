@@ -42,7 +42,7 @@ public class NodeCLI {
 
             UDPClient tempUDPCLient = new UDPClient(this.masterPeer);
             NodeLogger.logMessage("Creating informAndUpdate packet for " + file + "...");
-
+            System.out.println("Inform");
             int hash = (Utils.hash(file) % 2) + 1;
             System.out.println("HASH: " + hash);
 
