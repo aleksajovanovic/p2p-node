@@ -104,7 +104,7 @@ public class NodeCLI {
                 // HTTP GET request
                 HttpClient http = new HttpClient();
                 System.out.println("Send Http GET request");
-                String test = ("http:/" + res + ":" + "8000" + "/?param1=" + filename);
+                String test = ("http:/" + "localhost" + ":" + "8000" + "/?param1=" + filename);
 
                 http.sendGet(test, filename);
             } catch (Exception e) {
