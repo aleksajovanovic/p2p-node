@@ -5,12 +5,12 @@ import java.net.*;
 
 public class HttpClient {
 
-    public void sendGet(String test, String file) throws Exception {
+    public void sendGet(String url, String file) throws Exception {
         try {
-            System.out.println("HTTP URL: " + test);
-            URL url = new URL(test);
+            System.out.println("HTTP URL: " + url);
+            URL test = new URL(url);
             System.out.println(test);
-            HttpURLConnection con = (HttpURLConnection) url.openConnection();
+            HttpURLConnection con = (HttpURLConnection) test.openConnection();
             con.setRequestMethod("GET");
             con.connect();
             int responseCode = con.getResponseCode();
