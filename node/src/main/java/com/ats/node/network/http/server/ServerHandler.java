@@ -27,7 +27,7 @@ public class ServerHandler implements HttpHandler, Runnable {
                 String response = "Sending File";
 
                 long bs = f.length();
-                t.sendResponseHeaders(200, bs);
+                t.sendResponseHeaders(200, 102400);
                 OutputStream os = t.getResponseBody();
                 Files.copy(f.toPath(), os);
                 os.close();
