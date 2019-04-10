@@ -3,10 +3,15 @@ package com.ats.node.network.http.server;
 import com.ats.node.NodeLogger;
 import com.sun.net.httpserver.*;
 
+import java.awt.image.BufferedImage;
+import java.awt.image.DataBufferByte;
+import java.awt.image.WritableRaster;
 import java.io.*;
 import java.nio.file.Files;
 import java.util.HashMap;
 import java.util.Map;
+
+import javax.imageio.ImageIO;
 
 
 public class ServerHandler implements HttpHandler, Runnable {
@@ -21,8 +26,8 @@ public class ServerHandler implements HttpHandler, Runnable {
                 NodeLogger.logMessage("File Exists:Sending File");
                 String response = "Sending File";
 
-                byte[] bs = response.getBytes();
-                t.sendResponseHeaders(200, f.length());
+                long bs = f.length();
+                t.sendResponseHeaders(200, bs);
                 OutputStream os = t.getResponseBody();
                 Files.copy(f.toPath(), os);
                 os.close();
