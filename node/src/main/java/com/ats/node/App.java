@@ -26,8 +26,8 @@ public class App {
         NodeCLI nodeCLI = new NodeCLI(masterPeer, PICTURES_DIRECTORY);
 
         // init: ask for all dht servers info
-        // HashMap<String, String> dhtServers = nodeCLI.init();
-        // NodeLogger.logDHTServerDetails(dhtServers);
+        HashMap<String, String> dhtServers = nodeCLI.init();
+        NodeLogger.logDHTServerDetails(dhtServers);
 
         // inform and update: add node's own pictures to network
         nodeCLI.informAndUpdate(PICTURES_DIRECTORY);
