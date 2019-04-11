@@ -108,14 +108,13 @@ public class NodeCLI {
                 test.append("/?param1=");
                 test.append(filename);
                 String url = test.toString();
-                String finalURL = url.replaceAll("[^a-zA-Z0-9_-]", "");
 
                 // HTTP GET request
                 HttpClient http = new HttpClient();
                 System.out.println("Send Http GET request");
                 //String test = ("http://" + httpServerIP + ":" + "8000" + "/?param1=" + filename);
 
-                http.sendGet(finalURL, filename);
+                http.sendGet(url, filename);
             } catch (Exception e) {
                 System.out.println(e.getMessage());
             }
