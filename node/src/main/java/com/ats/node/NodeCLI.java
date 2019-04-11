@@ -5,6 +5,9 @@ import com.ats.node.network.http.client.HttpClient;
 import com.ats.node.network.udp.client.UDPClient;
 
 import java.util.Scanner;
+
+import javax.xml.crypto.dsig.keyinfo.X509Data;
+
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -40,8 +43,8 @@ public class NodeCLI {
         // List<String> filenames = fileManager.getFilenames();
 
         List<String> filenames = new ArrayList<String>();
-        filenames.add("belgrade.jpg");
-        filenames.add("shrek.jpg");
+        filenames.add("pakistan.jpg");
+        filenames.add("lisboa.jpg");
 
         for (String file : filenames) {
             UDPClient tempUDPCLient = new UDPClient(this.masterPeer);
@@ -98,15 +101,21 @@ public class NodeCLI {
         } else {
             NodeLogger.logMessage("File found at peer with ip: " + res);
             try {
-
+                StringBuilder test = new StringBuilder("http://");
                 String httpServerIP = res.substring(1);
+                test.append(httpServerIP);
+                test.append(":8000");
+                test.append("/?param1=");
+                test.append(filename);
+                String url = test.toString();
+                String finalURL = url.replaceAll("[^a-zA-Z0-9_-]", "");
 
                 // HTTP GET request
                 HttpClient http = new HttpClient();
                 System.out.println("Send Http GET request");
-                String test = ("http://" + httpServerIP + ":" + "8000" + "/?param1=" + filename);
+                //String test = ("http://" + httpServerIP + ":" + "8000" + "/?param1=" + filename);
 
-                http.sendGet(test, filename);
+                http.sendGet(finalURL, filename);
             } catch (Exception e) {
                 System.out.println(e.getMessage());
             }
