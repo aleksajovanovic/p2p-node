@@ -43,8 +43,8 @@ public class NodeCLI {
         // List<String> filenames = fileManager.getFilenames();
 
         List<String> filenames = new ArrayList<String>();
-        filenames.add("pakistan.jpg");
-        filenames.add("lisboa.jpg");
+        filenames.add("belgrade.jpg");
+        filenames.add("shrek.jpg");
 
         for (String file : filenames) {
             UDPClient tempUDPCLient = new UDPClient(this.masterPeer);
